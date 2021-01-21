@@ -12,21 +12,28 @@ notectrl.createnewnote = async (req, res) => {
     //console.log(req.body)
     const {title, description} = req.body;
     const newNote = new Note({title, description})
+    newNote.user = req.user.id;
     //console.log(newNote)
     await newNote .save();
+
+
     // res.send('new note');
     req.flash('success_msg', 'Nota Added Successfully');
     res.redirect('/notes')
 };
 
 notectrl.renderNotes = async (req, res) => {
-    const notes = await Note.find();
+    const notes = await Note.find({user : req.user.id}).sort({createdAt: 'desc'}) ;
     res.render('notes/all-notes', {notes})
 };
 
 notectrl.renderEditForm = async (req, res) => {
     const note = await Note.findById(req.params.id);
-    console.log(note);
+    if (note.user != req.user.id) {
+        req.flash('error_msg', 'No autorizado.');
+        return res.redirect('/notes');
+    }
+    //console.log(note);
     res.render('notes/edit-notes' , { note });
 };
 
