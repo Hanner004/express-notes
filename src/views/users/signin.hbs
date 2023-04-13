@@ -4,17 +4,15 @@
             <div class="card-header">
                 Account Login
             </div>
-            <img src="/img/logo1.png" class="rounded-circle mx-auto d-block m-4 logo">
+            {{!-- <img src="/img/logo1.png" class="rounded-circle mx-auto d-block m-4 logo"> --}}
             <div class="card-body">
                 <form action="/users/signin" method="POST">
-                    
                     <div class="form-group">
                         <input type="email" class="form-control" name="email" placeholder="Email">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" name="password" placeholder="Password">
                     </div>
-                    
                     <button type="submit" class="btn btn-primary btn-block">SIGNIN</button>
                 </form>
             </div>
